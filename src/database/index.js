@@ -5,9 +5,11 @@ import CollectionConfiguration from "./model/CollectionConfiguration";
 import ContentType from "./model/ContentType";
 import ContentTypeExtension from "./model/ContentTypeExtension";
 import Extension from "./model/Extension";
+import File from "./model/File";
 import FileTag from "./model/FileTag";
 import Label from "./model/Label";
 import Privacy from "./model/Privacy";
+import Tab from "./model/Tab";
 import Tag from "./model/Tag";
 import UserPreference from "./model/UserPreference";
 
@@ -29,6 +31,7 @@ const files = new File(profileDataPath, "files");
 const file_tag = new FileTag(profileDataPath, "file_tag");
 const labels = new Label(profileDataPath, "labels");
 const privacies = new Privacy(profileDataPath, "privacies");
+const tabs = new Tab(profileDataPath, "tabs");
 const tags = new Tag(profileDataPath, "tags");
 const user_preferences = new UserPreference(
   profileDataPath,
@@ -45,6 +48,7 @@ export {
   file_tag,
   labels,
   privacies,
+  tabs,
   tags,
   user_preferences
 };

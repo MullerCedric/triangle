@@ -1,6 +1,5 @@
 "use strict";
-
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol,
   installVueDevtools
@@ -8,7 +7,11 @@ import {
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // DATABASE
-// import { contentType } from "./database";
+import * as db from "./database";
+ipcMain.on("get-req", async (event, resource, filters = {}) => {
+  const resp = await db[resource].get(filters);
+  event.returnValue = resp;
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -32,7 +35,6 @@ function createWindow() {
     }
   });
   win.maximize();
-  win.show();
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -43,6 +45,7 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+  win.show();
 
   win.on("closed", () => {
     win = null;
