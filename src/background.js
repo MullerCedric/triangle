@@ -10,14 +10,10 @@ const fse = require("fs-extra");
 // COMMUNICATION WITH RENDERER PROCESS
 import * as db from "./database";
 ipcMain.on("get-req", async (event, resource, filters = null) => {
-  let resp = [];
-  if (typeof resource === "string") {
-    resp = await db[resource].get(filters);
-  }
-  if (typeof resource === "object" && !!resource.from && !!resource.select) {
-    // Try to make relational requests here
-  }
-  event.returnValue = resp;
+  event.returnValue = await db[resource].get(filters);
+});
+ipcMain.on("get-last-req", async (event, resource, nth, filters = null) => {
+  event.returnValue = await db[resource].getNthLast(nth, filters);
 });
 
 ipcMain.on("move-files", (event, arg) => {

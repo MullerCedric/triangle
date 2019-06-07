@@ -26,7 +26,11 @@
           </button>
         </span>
       </div>
-      <component :is="currentlyOpened" class="side-panel__content" />
+      <component
+        :is="currentlyOpened"
+        @close-tab="closeTab"
+        class="side-panel__content"
+      />
     </div>
   </div>
 </template>
@@ -73,6 +77,10 @@ export default {
       }
       this.currentlyOpened = machineName;
       this.isOpen = true;
+    },
+    closeTab() {
+      this.currentlyOpened = "";
+      this.isOpen = false;
     }
   }
 };

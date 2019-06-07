@@ -29,6 +29,22 @@ class Table {
       .value();
   }
 
+  // TODO better arguments with limit & orderBy instead of seperate functions
+  async getNthLast(nth = 1, filters = null) {
+    if (!filters) {
+      return this.db
+        .get("data")
+        .takeRight(nth)
+        .value();
+    }
+
+    return this.db
+      .get("data")
+      .filter(filters)
+      .takeRight(nth)
+      .value();
+  }
+
   post(data) {
     this.db
       .get("data")
