@@ -1,20 +1,32 @@
 <template>
   <header class="main-header">
-    <div>Lecteur (avec condition)</div>
-    <div>Nouveau dossier</div>
+    <mini-player v-if="false"></mini-player>
+    <add-dir></add-dir>
     <add-file></add-file>
-    <div class="main-header__search">Recherche</div>
-    <div>Avatar</div>
-    <div>Configuration</div>
+    <main-search-bar class="main-header__search"></main-search-bar>
+    <avatar-preview></avatar-preview>
+    <settings></settings>
   </header>
 </template>
 
 <script>
+import MiniPlayer from "../header/MiniPlayer";
+import AddDir from "../header/AddDir";
 import AddFile from "../header/AddFile";
+import MainSearchBar from "../header/MainSearchBar";
+import AvatarPreview from "../header/AvatarPreview";
+import Settings from "../header/Settings";
 
 export default {
   name: "MainHeader",
-  components: { AddFile }
+  components: {
+    Settings,
+    AvatarPreview,
+    MainSearchBar,
+    MiniPlayer,
+    AddDir,
+    AddFile
+  }
 };
 </script>
 
@@ -27,9 +39,13 @@ export default {
   align-items: center;
   > * {
     margin-left: 3rem;
+    &:first-child {
+      margin-left: 0;
+    }
   }
   &__search {
     flex: 1;
+    text-align: center;
   }
 }
 </style>
