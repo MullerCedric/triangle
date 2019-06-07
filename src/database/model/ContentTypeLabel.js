@@ -1,6 +1,6 @@
 import Table from "../Table";
 
-class ContentType extends Table {
+class ContentTypeLabel extends Table {
   constructor(dbPath, dbName) {
     super(dbPath, dbName);
   }
@@ -10,16 +10,16 @@ class ContentType extends Table {
       .defaults({
         data: [
           {
-            id: "0",
-            name: "Audio"
+            content_type_id: "0",
+            label_id: "0"
           },
           {
-            id: "1",
-            name: "Vidéo"
+            content_type_id: "0",
+            label_id: "1"
           },
           {
-            id: "2",
-            name: "Photo"
+            content_type_id: "1",
+            label_id: "0"
           }
         ]
       })
@@ -27,4 +27,4 @@ class ContentType extends Table {
   }
 }
 
-export default ContentType;
+export default ContentTypeLabel;

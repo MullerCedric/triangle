@@ -1,6 +1,6 @@
 import Table from "../Table";
 
-class Privacy extends Table {
+class Tab extends Table {
   constructor(dbPath, dbName) {
     super(dbPath, dbName);
   }
@@ -11,11 +11,15 @@ class Privacy extends Table {
         data: [
           {
             id: "0",
-            name: "Privé"
+            zone: "left",
+            machine_name: "Shortcuts",
+            name: "Raccourcis"
           },
           {
             id: "1",
-            name: "Publique"
+            zone: "left",
+            machine_name: "About",
+            name: "À propos"
           }
         ]
       })
@@ -23,4 +27,4 @@ class Privacy extends Table {
   }
 }
 
-export default Privacy;
+export default Tab;

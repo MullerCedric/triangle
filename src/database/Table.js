@@ -1,6 +1,6 @@
 class Table {
   constructor(dbPath, dbName) {
-    const low = require("lowdb");
+    this.low = require("lowdb");
     const FileSync = require("lowdb/adapters/FileSync");
     const fs = require("fs");
 
@@ -12,13 +12,46 @@ class Table {
 
     this.dbPath = dbPath;
     this.dbName = dbName;
-    this.db = low(adapter);
+    this.db = this.low(adapter);
 
-    this.db.defaults([]).write();
-
-    /*if (!Table.instances) Table.instances = [];
-    Table.instances.push(this);*/
+    this.setDefaults();
   }
+  setDefaults() {
+    this.db.defaults({ data: [] }).write();
+  }
+
+  async get(filters = null) {
+    if (!filters) return this.db.get("data").value();
+
+    return this.db
+      .get("data")
+      .filter(filters)
+      .value();
+  }
+
+  // TODO better arguments with limit & orderBy instead of seperate functions
+  async getNthLast(nth = 1, filters = null) {
+    if (!filters) {
+      return this.db
+        .get("data")
+        .takeRight(nth)
+        .value();
+    }
+
+    return this.db
+      .get("data")
+      .filter(filters)
+      .takeRight(nth)
+      .value();
+  }
+
+  post(data) {
+    this.db
+      .get("data")
+      .push(data)
+      .write();
+  }
+
   /*
   hasOne(foreignDbInstance, foreign_key = null, local_key = null) {
     console.log(foreignDbInstance, foreign_key, local_key);
