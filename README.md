@@ -1,29 +1,18 @@
-# triangle-app
+# Triangle
 
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run the app (dev mode)
 ```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
+npm run elecron:serve
 ```
 
-### Run your tests
+### Run the app (prod mode)
+1. Build the app
 ```
-yarn run test
+npm run electron:build
 ```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+2. Install and execute Triangle Setup without firewall
