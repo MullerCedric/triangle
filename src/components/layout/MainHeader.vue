@@ -2,7 +2,7 @@
   <header class="main-header">
     <div>Lecteur (avec condition)</div>
     <div>Nouveau dossier</div>
-    <div>Nouveau fichier</div>
+    <add-file></add-file>
     <div class="main-header__search">Recherche</div>
     <div>Avatar</div>
     <div>Configuration</div>
@@ -10,8 +10,11 @@
 </template>
 
 <script>
+import AddFile from "../header/AddFile";
+
 export default {
-  name: "MainHeader"
+  name: "MainHeader",
+  components: { AddFile }
 };
 </script>
 

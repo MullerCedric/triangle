@@ -5,12 +5,46 @@ import {
   installVueDevtools
 } from "vue-cli-plugin-electron-builder/lib";
 const isDevelopment = process.env.NODE_ENV !== "production";
+const fse = require("fs-extra");
 
-// DATABASE
+// COMMUNICATION WITH RENDERER PROCESS
 import * as db from "./database";
-ipcMain.on("get-req", async (event, resource, filters = {}) => {
-  const resp = await db[resource].get(filters);
+ipcMain.on("get-req", async (event, resource, filters = null) => {
+  let resp = [];
+  if (typeof resource === "string") {
+    resp = await db[resource].get(filters);
+  }
+  if (typeof resource === "object" && !!resource.from && !!resource.select) {
+    // Try to make relational requests here
+  }
   event.returnValue = resp;
+});
+
+ipcMain.on("move-files", (event, arg) => {
+  const profileName = "user1";
+  const defaultPath =
+    app.getPath("userData") + "\\" + profileName + "\\files\\";
+  const pathFromPref = db.user_preferences.db.get("distFolder").value();
+  const dstPath = pathFromPref || defaultPath;
+
+  arg.forEach(file => {
+    const fullDstPath = dstPath + file.id + "." + file.extension;
+    fse
+      .move(file.path, fullDstPath, { overwrite: true })
+      .then(() => {
+        event.reply("files-moved");
+      })
+      .catch(err => {
+        console.log(err);
+        event.reply("files-moved");
+      });
+  });
+});
+ipcMain.on("save-data", (event, arg) => {
+  arg.forEach(file => {
+    db["files"].post(file);
+  });
+  event.reply("data-saved");
 });
 
 // Keep a global reference of the window object, if you don't, the window will

@@ -15,9 +15,6 @@ class Table {
     this.db = this.low(adapter);
 
     this.setDefaults();
-
-    /*if (!Table.instances) Table.instances = [];
-    Table.instances.push(this);*/
   }
   setDefaults() {
     this.db.defaults({ data: [] }).write();
@@ -30,6 +27,13 @@ class Table {
       .get("data")
       .filter(filters)
       .value();
+  }
+
+  post(data) {
+    this.db
+      .get("data")
+      .push(data)
+      .write();
   }
 
   /*

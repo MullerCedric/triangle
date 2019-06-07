@@ -11,7 +11,8 @@
         @click="updateTab(tab.machine_name)"
         class="side-panel__tab"
         :class="{
-          'side-panel__tab--opened': tab.machine_name === currentlyOpened
+          'side-panel__tab--opened':
+            tab.machine_name === currentlyOpened && isOpen
         }"
       >
         {{ tab.name }}
