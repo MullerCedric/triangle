@@ -43,6 +43,7 @@ export default {
     flex-grow: 1;
     overflow: auto;
     max-height: 100%;
+    padding: 2.5rem 2rem 5rem;
   }
   &__side-panel {
     max-height: 100%;

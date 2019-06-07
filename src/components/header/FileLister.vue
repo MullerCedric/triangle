@@ -66,8 +66,8 @@ export default {
   &__file-action:before {
     color: $mainColor;
   }
-  &__file-slot {
-    margin-bottom: 2.5rem;
+  &__file-slot + .file-lister__file-slot {
+    margin-top: 3.5rem;
   }
 }
 </style>

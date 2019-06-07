@@ -118,6 +118,8 @@ export default {
     width: 720px;
     max-width: 80vw;
     color: $light;
+    padding: 1.25rem 1rem 2rem;
+    box-sizing: border-box;
   }
   &__step {
     max-height: 80vh;
@@ -126,6 +128,7 @@ export default {
   &__footer {
     display: flex;
     align-items: center;
+    margin-top: 4rem;
   }
   &__actions {
     flex: 1;

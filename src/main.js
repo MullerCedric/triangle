@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./plugins/element.js";
+import "./plugins/theme/element-variables.scss";
 import _ from "lodash";
 
 Vue.config.productionTip = false;

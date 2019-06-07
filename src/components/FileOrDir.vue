@@ -8,7 +8,7 @@
     @click="selectItem"
   >
     <div class="file-or-dir__icon"></div>
-    <div class="file-or-dir__name">{{ fileName }}</div>
+    <div class="file-or-dir__name" :title="file.name">{{ fileName }}</div>
   </div>
 </template>
 

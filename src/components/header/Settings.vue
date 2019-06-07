@@ -3,10 +3,11 @@
     <i class="el-icon-setting settings__icon" @click="dialogVisible = true"></i>
 
     <el-dialog
-      title="Paramètres"
       :visible.sync="dialogVisible"
-      width="75%"
       :close-on-click-modal="false"
+      :modal="false"
+      title="Paramètres"
+      width="75%"
       center
     >
       <span>
@@ -37,10 +38,16 @@ export default {
   &__icon {
     font-size: 2.5rem;
     transition: 0.3s ease-in-out;
-    &:hover {
+    &:hover,
+    &:focus,
+    &:active {
       cursor: pointer;
+      color: $lightest;
       transform: rotate(35deg);
     }
   }
+}
+.el-dialog__wrapper {
+  background-color: rgba(35, 40, 45, 0.5);
 }
 </style>
