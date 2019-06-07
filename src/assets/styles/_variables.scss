@@ -1,0 +1,11 @@
+$darkest: hsl(0, 0%, 5%);
+$darker: hsl(0, 0%, 10%);
+$dark: hsl(0, 0%, 20%);
+$light: hsl(0, 0%, 45%);
+$lighter: hsl(0, 0%, 80%);
+$lightest: hsl(0, 0%, 100%);
+
+$mainColor: hsl(203, 100%, 50%);
+$darkMain: mix($darker, $mainColor, 96%);
+$gradient1: adjust_hue(mix($darker,$mainColor, 87%), 9);
+$gradient2: adjust_hue($gradient1, -17);

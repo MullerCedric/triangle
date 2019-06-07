@@ -1,11 +1,47 @@
 "use strict";
-
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol,
   installVueDevtools
 } from "vue-cli-plugin-electron-builder/lib";
 const isDevelopment = process.env.NODE_ENV !== "production";
+const fse = require("fs-extra");
+
+// COMMUNICATION WITH RENDERER PROCESS
+import * as db from "./database";
+ipcMain.on("get-req", async (event, resource, filters = null) => {
+  event.returnValue = await db[resource].get(filters);
+});
+ipcMain.on("get-last-req", async (event, resource, nth, filters = null) => {
+  event.returnValue = await db[resource].getNthLast(nth, filters);
+});
+
+ipcMain.on("move-files", (event, arg) => {
+  const profileName = "user1";
+  const defaultPath =
+    app.getPath("userData") + "\\" + profileName + "\\files\\";
+  const pathFromPref = db.user_preferences.db.get("distFolder").value();
+  const dstPath = pathFromPref || defaultPath;
+
+  arg.forEach(file => {
+    const fullDstPath = dstPath + file.id + "." + file.extension;
+    fse
+      .move(file.path, fullDstPath, { overwrite: true })
+      .then(() => {
+        event.reply("files-moved");
+      })
+      .catch(err => {
+        console.log(err);
+        event.reply("files-moved");
+      });
+  });
+});
+ipcMain.on("save-data", (event, arg) => {
+  arg.forEach(file => {
+    db["files"].post(file);
+  });
+  event.reply("data-saved");
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,12 +55,16 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 800,
+    minWidth: 600,
+    minHeight: 400,
+    show: false,
     webPreferences: {
       nodeIntegration: true
     }
   });
+  win.maximize();
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -35,6 +75,7 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+  win.show();
 
   win.on("closed", () => {
     win = null;
