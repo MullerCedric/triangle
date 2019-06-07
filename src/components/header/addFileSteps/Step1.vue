@@ -81,7 +81,6 @@ export default {
       this.fetchLabels(indexOfCurrentFile, updatedContentTypes);
     },
     fetchLabels(indexOfCurrentFile, fileContentTypes) {
-      window.console.log("Fetch Labels", indexOfCurrentFile, fileContentTypes);
       // The relationships shouldn't be done on the front but I couldn't find
       // another solution without an SQL Data Base ¯\_(ツ)_/¯
 
@@ -112,9 +111,6 @@ export default {
       );
 
       this.$emit("update-files", files);
-    },
-    saveFiles() {
-      window.console.log(this.items);
     }
   },
 

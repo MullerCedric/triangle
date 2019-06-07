@@ -45,6 +45,7 @@
 
 <script>
 const { ipcRenderer } = require("electron");
+import EventBus from "../../event-bus";
 
 import * as steps from "./addFileSteps";
 
@@ -78,7 +79,6 @@ export default {
 
   methods: {
     changeToPage(pageNumber) {
-      window.console.log("ET ON CHANGE POUR LA PAGE ", pageNumber);
       this.active = pageNumber - 1;
     },
     updateItems(newItems) {
@@ -88,6 +88,7 @@ export default {
     reset() {
       this.visible = false;
       this.items = [];
+      EventBus.$emit("UPDATE_ITEMS");
       this.active = 0;
     },
     moveAndSave() {

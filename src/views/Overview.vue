@@ -27,6 +27,7 @@
 
 <script>
 import { ipcRenderer } from "electron";
+import EventBus from "../event-bus";
 
 import Explorer from "../components/layout/Explorer";
 
@@ -57,9 +58,10 @@ export default {
   },
 
   mounted() {
-    window.console.log("Overview mounted");
+    EventBus.$on("UPDATE_ITEMS", () => {
+      this.recentFiles = this.fetchLastNthFiles(this.nbRecent);
+    });
     this.recentFiles = this.fetchLastNthFiles(this.nbRecent);
-    window.console.log(this.recentFiles);
   }
 };
 </script>
